@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -10,8 +7,33 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
+model Events {
   id String @id @default(cuid())
-  email String @unique
-  password String
+  name String @unique
+  description String
+  durationInMinutes Int
+  clerkUserId String
+  isActive Boolean @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Schedule {
+  id String @id @default(cuid())
+  timezone String
+  clerkUserId String @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  availabilities Availability[]
+}
+
+model Availability {
+  id String @id @default(cuid())
+  schedule Schedule @relation(fields: [scheduleId], references: [id], onDelete: Cascade)
+  scheduleId String
+  startTime String
+  endTime String
+  dayOfWeek String
+
+  @@index([scheduleId])
 }
