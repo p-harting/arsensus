@@ -1,4 +1,3 @@
-// auth.ts
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 
@@ -18,8 +17,15 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       if (user.email && allowedEmails.includes(user.email)) {
         return true; // Allow sign-in
       } else {
-        return false; // Block sign-in
+        // Redirect unauthorized users to the homepage
+        return "/"; // Redirect to the homepage
       }
+    },
+    async redirect({ url, baseUrl }) {
+      // Ensure redirects are relative to the base URL
+      if (url.startsWith("/")) return `${baseUrl}${url}`;
+      else if (new URL(url).origin === baseUrl) return url;
+      return baseUrl;
     },
   },
 });
