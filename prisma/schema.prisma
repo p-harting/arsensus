@@ -12,28 +12,12 @@ model Events {
   name String @unique
   description String
   durationInMinutes Int
-  clerkUserId String
   isActive Boolean @default(true)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-model Schedule {
-  id String @id @default(cuid())
-  timezone String
-  clerkUserId String @unique
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  availabilities Availability[]
 }
 
 model Availability {
   id String @id @default(cuid())
-  schedule Schedule @relation(fields: [scheduleId], references: [id], onDelete: Cascade)
-  scheduleId String
   startTime String
   endTime String
   dayOfWeek String
-
-  @@index([scheduleId])
 }
