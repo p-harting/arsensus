@@ -9,8 +9,10 @@ export default async function Page() {
   if (!session) return <Signin />;
 
   return (
-    <div>
-      <h1 className="text-white">Admin Dashboard</h1>
+    <div className="flex flex-col justify-center items-center">
+      <h1 className='text-center text-[40px] md:text-5xl lg:text-6xl uppercase dark'>
+        Admin Dashboard
+      </h1>
       <form
         action={async () => {
           "use server";
