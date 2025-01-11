@@ -37,7 +37,7 @@ const Hero = () => {
             duration={1}
             words='Entfalte dein Potential mit Arsensus Coaching'
           />
-          <a href='#buchen'>
+          <a href='/buchen'>
             <MagicButton
               title="Jetzt kostenloses Erstgespräch buchen"
             />
